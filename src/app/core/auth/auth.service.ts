@@ -6,12 +6,12 @@ import { catchError, switchMap } from 'rxjs/operators';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
 import { environment } from 'environments/environment';
+import { ThrowStmt } from '@angular/compiler';
 
 const httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      'Cache-Control': 'no-cache',
-      //'Authorization': 'my-auth-token'
+      'Cache-Control': 'no-cache'
     })
 };
 
@@ -91,9 +91,10 @@ export class AuthService
             }
         }, httpOptions).pipe(
             switchMap((response: any) => {
+                console.log(response);
 
                 // Store the access token in the local storage
-                this.accessToken = response.accessToken;
+                this.accessToken = response.Data.Token;
 
                 // Set the authenticated flag to true
                 this._authenticated = true;
@@ -113,9 +114,11 @@ export class AuthService
     signInUsingToken(): Observable<any>
     {
         // Renew token
-        return this._httpClient.post('api/auth/refresh-access-token', {
-            accessToken: this.accessToken
-        }).pipe(
+        return this._httpClient.post(environment.apiUrl + 'supra-auth/Authentication/LoginComToken', {
+            DadosLogin: {
+                Token: this.accessToken
+            }
+        }, httpOptions).pipe(
             catchError(() =>
 
                 // Return false
@@ -124,7 +127,7 @@ export class AuthService
             switchMap((response: any) => {
 
                 // Store the access token in the local storage
-                this.accessToken = response.accessToken;
+                this.accessToken = response.Data.Token;
 
                 // Set the authenticated flag to true
                 this._authenticated = true;
@@ -158,9 +161,24 @@ export class AuthService
      *
      * @param user
      */
-    signUp(user: { name: string; email: string; password: string; company: string }): Observable<any>
+    signUp(user: { name: string; email: string; password: string; company: string; country: string; phone: string }): Observable<any>
     {
-        return this._httpClient.post('api/auth/sign-up', user);
+        return this._httpClient.post(environment.apiUrl + 'supra-auth/Registros/RegistrarConta', {
+            Registro: {
+                // UID: 0,
+                Nome: user.name,
+                Email: user.email,
+                Senha: user.password,
+                Telefone: user.country + ' ' + user.phone,
+            }
+        }, httpOptions).pipe(
+            catchError(() =>
+
+                // Return false
+                of(false)
+            ),
+            switchMap((response: any) => response.Result.Code === 0 ? of(true) : of(false))
+        );
     }
 
     /**

@@ -6,6 +6,14 @@ import { takeUntil } from 'rxjs/operators';
 import { User } from 'app/core/user/user.model';
 import { UserService } from 'app/core/user/user.service';
 
+const demoUser = {
+    id    : 'cfaad35d-07a3-4447-a6c3-d8c3d54fd5df',
+    name  : 'Brian Hughes',
+    email : 'hughes.brian@company.com',
+    avatar: 'assets/images/avatars/brian-hughes.jpg',
+    status: 'online'
+};
+
 @Component({
     selector       : 'user-menu',
     templateUrl    : './user-menu.component.html',
@@ -48,7 +56,7 @@ export class UserMenuComponent implements OnInit, OnDestroy
         this._userService.user$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((user: User) => {
-                this.user = user;
+                this.user = demoUser;
 
                 // Mark for check
                 this._changeDetectorRef.markForCheck();

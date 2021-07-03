@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://suprasystem-dev.vipsistemas.com.br',
+    apiUrl: 'https://suprasystem-dev.vipsistemas.com.br/',
 };
