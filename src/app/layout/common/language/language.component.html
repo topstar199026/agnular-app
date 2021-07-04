@@ -1,12 +1,12 @@
 <!-- Button -->
-<button
+<!-- <button
     mat-icon-button
     [matMenuTriggerFor]="languages">
     <ng-container *ngTemplateOutlet="flagImage; context: {$implicit: activeLang}"></ng-container>
-</button>
+</button> -->
 
 <!-- Language menu -->
-<mat-menu
+<!-- <mat-menu
     [xPosition]="'before'"
     #languages="matMenu">
     <ng-container *ngFor="let lang of availableLangs; trackBy: trackByFn">
@@ -19,10 +19,10 @@
             </span>
         </button>
     </ng-container>
-</mat-menu>
+</mat-menu> -->
 
 <!-- Flag image template -->
-<ng-template
+<!-- <ng-template
     let-lang
     #flagImage>
     <span class="relative w-6 shadow rounded-sm overflow-hidden">
@@ -32,4 +32,4 @@
             [src]="'assets/images/flags/' + flagCodes[lang].toUpperCase() + '.svg'"
             [alt]="'Flag image for ' + lang">
     </span>
-</ng-template>
+</ng-template> -->

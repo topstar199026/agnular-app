@@ -52,6 +52,7 @@ export class UserMenuComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
+        this.user = demoUser;
         // Subscribe to user changes
         this._userService.user$
             .pipe(takeUntil(this._unsubscribeAll))
