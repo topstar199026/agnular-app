@@ -26,7 +26,6 @@ export class AuthUtils
      */
     static isTokenExpired(token: string, offsetSeconds?: number): boolean
     {
-        return true;
         // Return if there is no token
         if ( !token || token === '' )
         {

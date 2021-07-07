@@ -115,9 +115,6 @@ export class AuthSignUpComponent implements OnInit, OnDestroy
                         // Re-enable the form
                         this.signUpForm.enable();
 
-                        // Reset the form
-                        this.signUpNgForm.resetForm();
-
                         // Set the alert
                         this.alert = {
                             type   : 'error',

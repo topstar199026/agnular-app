@@ -1,8 +1,17 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from 'app/core/user/user.model';
+import { environment } from 'environments/environment';
+
+const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Cache-Control': 'no-cache'
+    })
+};
 
 @Injectable({
     providedIn: 'root'
@@ -36,6 +45,17 @@ export class UserService
     get user$(): Observable<User>
     {
         return this._user.asObservable();
+    }
+
+
+    get userDetail$(): Observable<any>
+    {
+        return this._httpClient.get<any>(environment.apiUrl + 'supra-admin/Usuarios/RecuperarUsuario?LogonEmail=threaduser1@empresa.com.br').pipe(
+            map((response) => {
+                // Execute the observable
+                this._user.next(response);
+            })
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------

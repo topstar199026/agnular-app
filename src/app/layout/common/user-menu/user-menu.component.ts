@@ -54,10 +54,10 @@ export class UserMenuComponent implements OnInit, OnDestroy
     {
         this.user = demoUser;
         // Subscribe to user changes
-        this._userService.user$
+        this._userService.userDetail$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((user: User) => {
-                this.user = demoUser;
+                this.user = user;
 
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
